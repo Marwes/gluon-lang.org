@@ -1,3 +1,5 @@
+extern crate try_gluon;
+
 extern crate futures;
 #[macro_use]
 extern crate iron;
@@ -6,15 +8,11 @@ extern crate staticfile;
 extern crate mount;
 extern crate gluon;
 extern crate serde_json;
-#[macro_use]
 extern crate log;
 extern crate env_logger;
 
 use std::fs::{File, read_dir};
 use std::io::{self, Read};
-use std::time::Instant;
-
-use futures::Async;
 
 use iron::mime::Mime;
 use iron::prelude::*;
@@ -27,35 +25,7 @@ use staticfile::Static;
 
 use mount::Mount;
 
-use gluon::base::symbol::{Symbol, SymbolRef};
-use gluon::base::kind::{ArcKind, KindEnv};
-use gluon::base::types::{Alias, ArcType, TypeEnv};
-use gluon::vm::thread::{RootedThread, Thread, ThreadInternal};
-use gluon::vm::Error;
-use gluon::vm::internal::ValuePrinter;
-use gluon::vm::api::{Hole, OpaqueValue};
-use gluon::Compiler;
-use gluon::import::{DefaultImporter, Import};
-
-pub struct EmptyEnv;
-
-impl KindEnv for EmptyEnv {
-    fn find_kind(&self, _type_name: &SymbolRef) -> Option<ArcKind> {
-        None
-    }
-}
-
-impl TypeEnv for EmptyEnv {
-    fn find_type(&self, _id: &SymbolRef) -> Option<&ArcType> {
-        None
-    }
-    fn find_type_info(&self, _id: &SymbolRef) -> Option<&Alias<Symbol, ArcType>> {
-        None
-    }
-    fn find_record(&self, _fields: &[Symbol]) -> Option<(ArcType, ArcType)> {
-        None
-    }
-}
+use gluon::vm::thread::RootedThread;
 
 pub struct VMKey;
 
@@ -64,54 +34,19 @@ impl Key for VMKey {
 }
 
 fn eval(req: &mut Request) -> IronResult<Response> {
-    eval_(req).map(|s| {
-        let mime: Mime = "text/plain".parse().unwrap();
-
-        Response::with((status::Ok, mime, serde_json::to_string(&s).unwrap()))
-    })
-}
-
-fn eval_(req: &mut Request) -> IronResult<String> {
     let mut body = String::new();
 
     itry!(req.body.read_to_string(&mut body));
-    info!("Eval: `{}`", body);
 
     let global_vm = req.get::<persistent::Read<VMKey>>().unwrap();
-    let vm = match global_vm.new_thread() {
-        Ok(vm) => vm,
-        Err(err) => return Ok(format!("{}", err)),
-    };
+    let s = global_vm
+        .new_thread()
+        .map(|vm| try_gluon::eval(&vm, &body))
+        .unwrap_or_else(|err| err.to_string());
 
-    // Prevent a single thread from allocating to much memory
-    vm.set_memory_limit(2_000_000);
+    let mime: Mime = "text/plain".parse().unwrap();
 
-    {
-        let mut context = vm.context();
-
-        // Prevent the stack from consuming to much memory
-        context.set_max_stack_size(10000);
-
-        // Prevent infinite loops from running forever
-        let start = Instant::now();
-        context.set_hook(Some(Box::new(move |_, _| if start.elapsed().as_secs() < 10 {
-            Ok(Async::Ready(()))
-        } else {
-            Err(Error::Message("Thread has exceeded the allowed exection time".into()))
-        })));
-    }
-
-    let (value, typ) = match Compiler::new()
-        .run_expr::<OpaqueValue<&Thread, Hole>>(&vm, "<top>", &body) {
-        Ok(value) => value,
-        Err(err) => return Ok(format!("{}", err)),
-    };
-
-    unsafe {
-        Ok(format!("{} : {}",
-                   ValuePrinter::new(&EmptyEnv, &typ, value.get_value()).max_level(6),
-                   typ))
-    }
+    Ok(Response::with((status::Ok, mime, serde_json::to_string(&s).unwrap())))
 }
 
 pub struct Examples;
@@ -148,32 +83,6 @@ fn load_examples() -> Value {
     Value::Array(vec)
 }
 
-fn make_eval_vm() -> RootedThread {
-    let vm = RootedThread::new();
-
-    // Ensure the import macro cannot be abused to to open files
-    {
-        // Ensure the lock to `paths` are released
-        let import = Import::new(DefaultImporter);
-        import.paths.write().unwrap().clear();
-        vm.get_macros()
-            .insert(String::from("import"), import);
-    }
-
-    // Initialize the basic types such as `Bool` and `Option` so they are available when loading
-    // other modules
-    Compiler::new()
-        .implicit_prelude(false)
-        .run_expr::<OpaqueValue<&Thread, Hole>>(&vm, "", r#" import! "std/types.glu" "#)
-        .unwrap();
-
-    gluon::vm::primitives::load(&vm).expect("Loaded primitives library");
-    // Load the io library so the prelude can be loaded (`IO` actions won't actually execute however)
-    gluon::io::load(&vm).expect("Loaded IO library");
-
-    vm
-}
-
 fn main() {
     env_logger::init().unwrap();
     let mut mount = Mount::new();
@@ -183,7 +92,7 @@ fn main() {
     {
         let mut middleware = Chain::new(eval);
 
-        let vm = make_eval_vm();
+        let vm = try_gluon::make_eval_vm();
         middleware.link(persistent::Read::<VMKey>::both(vm));
 
         mount.mount("/eval", middleware);

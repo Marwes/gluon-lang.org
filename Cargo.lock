@@ -1,10 +1,10 @@
 [root]
-name = "webserver"
-version = "0.1.0"
+name = "try_gluon"
+version = "0.4.0"
 dependencies = [
  "env_logger 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.1.13 (registry+https://github.com/rust-lang/crates.io-index)",
- "gluon 0.3.0 (git+https://github.com/gluon-lang/gluon)",
+ "gluon 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "iron 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "mount 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -98,6 +98,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "cpython"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.22 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num-traits 0.1.37 (registry+https://github.com/rust-lang/crates.io-index)",
+ "python27-sys 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "cpython-json"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "cpython 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_json 0.8.6 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "crowbar"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "cpython 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "cpython-json 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_json 0.8.6 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "diff"
 version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -112,6 +141,11 @@ dependencies = [
  "rustc-serialize 0.3.24 (registry+https://github.com/rust-lang/crates.io-index)",
  "strsim 0.5.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "dtoa"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "either"
@@ -153,15 +187,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "gluon"
-version = "0.3.0"
-source = "git+https://github.com/gluon-lang/gluon#bd829fa1f24de5ebb20adb93fe5aeac30f4fffeb"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "collect-mac 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.1.13 (registry+https://github.com/rust-lang/crates.io-index)",
- "gluon_base 0.3.0 (git+https://github.com/gluon-lang/gluon)",
- "gluon_check 0.3.0 (git+https://github.com/gluon-lang/gluon)",
- "gluon_parser 0.3.0 (git+https://github.com/gluon-lang/gluon)",
- "gluon_vm 0.3.0 (git+https://github.com/gluon-lang/gluon)",
+ "gluon_base 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gluon_check 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gluon_parser 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gluon_vm 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "quick-error 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "regex 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -169,8 +203,8 @@ dependencies = [
 
 [[package]]
 name = "gluon_base"
-version = "0.3.0"
-source = "git+https://github.com/gluon-lang/gluon#bd829fa1f24de5ebb20adb93fe5aeac30f4fffeb"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "collect-mac 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "fnv 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -182,10 +216,10 @@ dependencies = [
 
 [[package]]
 name = "gluon_check"
-version = "0.3.0"
-source = "git+https://github.com/gluon-lang/gluon#bd829fa1f24de5ebb20adb93fe5aeac30f4fffeb"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "gluon_base 0.3.0 (git+https://github.com/gluon-lang/gluon)",
+ "gluon_base 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "smallvec 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "union-find 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -193,10 +227,10 @@ dependencies = [
 
 [[package]]
 name = "gluon_parser"
-version = "0.3.0"
-source = "git+https://github.com/gluon-lang/gluon#bd829fa1f24de5ebb20adb93fe5aeac30f4fffeb"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
- "gluon_base 0.3.0 (git+https://github.com/gluon-lang/gluon)",
+ "gluon_base 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "lalrpop 0.12.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "lalrpop-util 0.12.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -205,15 +239,15 @@ dependencies = [
 
 [[package]]
 name = "gluon_vm"
-version = "0.3.0"
-source = "git+https://github.com/gluon-lang/gluon#bd829fa1f24de5ebb20adb93fe5aeac30f4fffeb"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "bitflags 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "collect-mac 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.1.13 (registry+https://github.com/rust-lang/crates.io-index)",
- "gluon_base 0.3.0 (git+https://github.com/gluon-lang/gluon)",
- "gluon_check 0.3.0 (git+https://github.com/gluon-lang/gluon)",
- "itertools 0.5.10 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gluon_base 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "gluon_check 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "itertools 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "mopa 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "pretty 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -289,7 +323,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "itertools"
-version = "0.5.10"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "either 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -361,6 +395,15 @@ dependencies = [
 name = "lalrpop-util"
 version = "0.12.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "lambda"
+version = "0.1.0"
+dependencies = [
+ "cpython 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "crowbar 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "try_gluon 0.4.0",
+]
 
 [[package]]
 name = "language-tags"
@@ -482,6 +525,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "python27-sys"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "libc 0.2.22 (registry+https://github.com/rust-lang/crates.io-index)",
+ "regex 0.1.80 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "quick-error"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -567,6 +619,11 @@ version = "0.7.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "serde"
+version = "0.8.23"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
 name = "serde_json"
 version = "0.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -574,6 +631,17 @@ dependencies = [
  "itoa 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "num-traits 0.1.37 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "serde_json"
+version = "0.8.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "dtoa 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "itoa 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "num-traits 0.1.37 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 0.8.23 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -833,26 +901,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum collect-mac 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "f168712e49987bd2f51cb855c4585999e12b1a0abdff60fea4b81b41f2010264"
 "checksum conduit-mime-types 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)" = "95ca30253581af809925ef68c2641cc140d6183f43e12e0af4992d53768bd7b8"
 "checksum cookie 0.2.5 (registry+https://github.com/rust-lang/crates.io-index)" = "0e3d6405328b6edb412158b3b7710e2634e23f3614b9bb1c412df7952489a626"
+"checksum cpython 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "07cbe305b1a7e99d7d7c7ed4e83aed6b316816869b2523069e6d75920df9e5a5"
+"checksum cpython-json 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "88792d3b47409f7613232f6a821e97359426d0ceedeee8407ecf8c4339f3fdb1"
+"checksum crowbar 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "c57ac4f9aa0fdbd9854f9e9ed5061ac26d99407bf48c1fc181d0388d69afac57"
 "checksum diff 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "0a515461b6c8c08419850ced27bc29e86166dcdcde8fbe76f8b1f0589bb49472"
 "checksum docopt 0.6.86 (registry+https://github.com/rust-lang/crates.io-index)" = "4a7ef30445607f6fc8720f0a0a2c7442284b629cf0d049286860fae23e71c4d9"
+"checksum dtoa 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "0dd841b58510c9618291ffa448da2e4e0f699d984d436122372f446dae62263d"
 "checksum either 1.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "18785c1ba806c258137c937e44ada9ee7e69a37e3c72077542cd2f069d78562a"
 "checksum env_logger 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)" = "15abd780e45b3ea4f76b4e9a26ff4843258dd8a3eed2775a0e7368c2e7936c2f"
 "checksum error 0.1.9 (registry+https://github.com/rust-lang/crates.io-index)" = "a6e606f14042bb87cc02ef6a14db6c90ab92ed6f62d87e69377bc759fd7987cc"
 "checksum fixedbitset 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "fcf4412e2d11115c5ed81c2fbdaba8028de0c92553497aa771fc5f4e0c5c8793"
 "checksum fnv 1.0.5 (registry+https://github.com/rust-lang/crates.io-index)" = "6cc484842f1e2884faf56f529f960cc12ad8c71ce96cc7abba0a067c98fee344"
 "checksum futures 0.1.13 (registry+https://github.com/rust-lang/crates.io-index)" = "55f0008e13fc853f79ea8fc86e931486860d4c4c156cdffb59fa5f7fa833660a"
-"checksum gluon 0.3.0 (git+https://github.com/gluon-lang/gluon)" = "<none>"
-"checksum gluon_base 0.3.0 (git+https://github.com/gluon-lang/gluon)" = "<none>"
-"checksum gluon_check 0.3.0 (git+https://github.com/gluon-lang/gluon)" = "<none>"
-"checksum gluon_parser 0.3.0 (git+https://github.com/gluon-lang/gluon)" = "<none>"
-"checksum gluon_vm 0.3.0 (git+https://github.com/gluon-lang/gluon)" = "<none>"
+"checksum gluon 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "98844383c033bd70a5cc94af7a03ea23f2d8b2cdc4d5b980a37f2f8e1a4c06e7"
+"checksum gluon_base 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "a01b8f11f2d3652a3a452372848514653156f9b3637c595733cdb925044df64d"
+"checksum gluon_check 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "4799ae00e1b22cd31ab5b6d7d96b2a90f3efcf336fd9c5db2e90ce303e8d6a3c"
+"checksum gluon_parser 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "a2c8fda5b107451eea1595df288c5e55d0f6fa3986225a3fdc287b1791884562"
+"checksum gluon_vm 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)" = "f0ec9bee92626a597886079489ac7a1c29faf78cb1f96b2d1c5badd3960b3066"
 "checksum hpack 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "3d2da7d3a34cf6406d9d700111b8eafafe9a251de41ae71d8052748259343b58"
 "checksum httparse 1.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "77f756bed9ee3a83ce98774f4155b42a31b787029013f3a7d83eca714e500e21"
 "checksum hyper 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)" = "bb0f4d00bb781e559b6e66ae4b5479df0fdf9ab15949f52fa2f1f5de16d4cc07"
 "checksum idna 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "6ac85ec3f80c8e4e99d9325521337e14ec7555c458a14e377d189659a427f375"
 "checksum iron 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "c03b4a39e3e58030d7a6fade38ed05600e92aeaf7b3b7f6bbfbec33fba60d876"
 "checksum itertools 0.3.25 (registry+https://github.com/rust-lang/crates.io-index)" = "16b73f1c685cfd8ff8d75698ed87e6188cd09944b30c0863d45c2c3699d1da0c"
-"checksum itertools 0.5.10 (registry+https://github.com/rust-lang/crates.io-index)" = "4833d6978da405305126af4ac88569b5d71ff758581ce5a987dbfa3755f694fc"
+"checksum itertools 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)" = "772a0928a97246167d59a2a4729df5871f1327ab8b36fd24c4224b229cb47b99"
 "checksum itoa 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "ae3088ea4baeceb0284ee9eea42f591226e6beaecf65373e41b38d95a1b8e7a1"
 "checksum kernel32-sys 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "7507624b29483431c0ba2d82aece8ca6cdba9382bff4ddd0f7490560c056098d"
 "checksum lalrpop 0.12.5 (registry+https://github.com/rust-lang/crates.io-index)" = "a50b5cdf6b58f1753c86ebcc4d0852ff30478133fb370a27dbf303cbd5621fdc"
@@ -877,6 +949,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum petgraph 0.1.18 (registry+https://github.com/rust-lang/crates.io-index)" = "bfd1de18b0a5f1777162e5b61aaf498032467d5409ab4ca6dbd03049f5708de1"
 "checksum plugin 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)" = "1a6a0dc3910bc8db877ffed8e457763b317cf880df4ae19109b9f77d277cf6e0"
 "checksum pretty 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "023e184a8dc60fde1d6e0916637835ad61d68fe83a190bf74977e8e4dca9d24e"
+"checksum python27-sys 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "f0db3a33c866948a86d6672fa9d7479686f9bb3b514b17e66491f474bf389c7f"
 "checksum quick-error 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "3c36987d4978eb1be2e422b1e0423a557923a5c3e7e6f31d5699e9aafaefa469"
 "checksum rand 0.3.15 (registry+https://github.com/rust-lang/crates.io-index)" = "022e0636ec2519ddae48154b028864bdce4eaf7d35226ab8e65c611be97b189d"
 "checksum redox_syscall 0.1.17 (registry+https://github.com/rust-lang/crates.io-index)" = "29dbdfd4b9df8ab31dec47c6087b7b13cbf4a776f335e4de8efba8288dda075b"
@@ -890,7 +963,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 "checksum semver 0.1.20 (registry+https://github.com/rust-lang/crates.io-index)" = "d4f410fedcf71af0345d7607d246e7ad15faaadd49d240ee3b24e5dc21a820ac"
 "checksum sequence_trie 0.0.13 (registry+https://github.com/rust-lang/crates.io-index)" = "d5b4eb0f7d1ff9b9666d8b8ff543f3705dd464025269a5b0e1988ffa60ca1be8"
 "checksum serde 0.7.15 (registry+https://github.com/rust-lang/crates.io-index)" = "1b0e0732aa8ec4267f61815a396a942ba3525062e3bd5520aa8419927cfc0a92"
+"checksum serde 0.8.23 (registry+https://github.com/rust-lang/crates.io-index)" = "9dad3f759919b92c3068c696c15c3d17238234498bbdcc80f2c469606f948ac8"
 "checksum serde_json 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)" = "b22e8a0554f31cb0f501e027de07b253553b308124f61c57598b9678dba35c0b"
+"checksum serde_json 0.8.6 (registry+https://github.com/rust-lang/crates.io-index)" = "67f7d2e9edc3523a9c8ec8cd6ec481b3a27810aafee3e625d311febd3e656b4c"
 "checksum smallvec 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "4c8cbcd6df1e117c2210e13ab5109635ad68a929fcbb8964dc965b76cb5ee013"
 "checksum solicit 0.4.4 (registry+https://github.com/rust-lang/crates.io-index)" = "172382bac9424588d7840732b250faeeef88942e37b6e35317dce98cafdd75b2"
 "checksum staticfile 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "c684ac0e2be10aa128647caaf539157c3bebc7a8a9693f0d97a42596d9753286"

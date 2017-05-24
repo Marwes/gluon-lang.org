@@ -1,13 +1,19 @@
 [package]
-name = "webserver"
+name = "try_gluon"
 version = "0.4.0"
 authors = ["Markus <marwes91@gmail.com>"]
 
 license = "MIT"
 
+[workspace]
+members = ["lambda"]
+
 [[bin]]
 name = "server"
 path = "src/app/main.rs"
+
+[lib]
+path = "src/app/lib.rs"
 
 [dependencies]
 futures = "0.1.0"
