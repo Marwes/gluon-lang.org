@@ -14,6 +14,7 @@
     "file-loader": "^1.1.5",
     "jquery": "^3.3.1",
     "node-sass": "^4.5.3",
+    "parcel-plugin-elm": "^0.1.2-alpha",
     "popper.js": "^1.12.3",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",

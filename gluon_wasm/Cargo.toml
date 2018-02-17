@@ -1,0 +1,11 @@
+[package]
+name = "gluon_wasm"
+version = "0.1.0"
+authors = ["Markus Westerlind <marwes91@gmail.com>"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+gluon = { version = "0.7.1", default-features = false }
+wasm-bindgen = { git = "https://github.com/alexcrichton/wasm-bindgen" }

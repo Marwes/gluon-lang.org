@@ -1,6 +1,6 @@
 $font-size-root: 14px;
 
-@import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap';
 
 .editor {
   font-size: $code-font-size;
