@@ -7,5 +7,5 @@ authors = ["Markus Westerlind <marwes91@gmail.com>"]
 crate-type = ["cdylib"]
 
 [dependencies]
-gluon = { version = "0.7.1", default-features = false }
+gluon = { version = "0.7.1", default-features = false, git = "https://github.com/Marwes/gluon" }
 wasm-bindgen = { git = "https://github.com/alexcrichton/wasm-bindgen" }

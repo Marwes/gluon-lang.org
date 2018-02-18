@@ -13,6 +13,19 @@ use gluon::RootedThread;
 #[wasm_bindgen]
 #[no_mangle]
 pub extern "C" fn run_expr(expr: &str) -> String {
-    gluon::new_vm();
-    expr.to_string()
+    let thread = gluon::new_vm();
+    let mut compiler = gluon::Compiler::new();
+    match compiler.run_expr::<OpaqueValue<RootedThread, Hole>>(&thread, "<top>", expr) {
+        Ok((v, t)) => {
+            let env = thread.global_env().get_env();
+            format!(
+                "{}: {}",
+                ValuePrinter::new(&*env, &t, v.get_variant())
+                    .width(80)
+                    .max_level(5),
+                t
+            )
+        }
+        Err(err) => err.to_string(),
+    }
 }
