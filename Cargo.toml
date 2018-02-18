@@ -27,3 +27,6 @@ gluon_format = "0.7.0"
 
 [dev-dependencies]
 env_logger = "0.5"
+
+[profile.release]
+debug = true
