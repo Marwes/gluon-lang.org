@@ -1,20 +1,24 @@
 'use strict';
 
-require('./index.html');
-require('./styles.scss');
+const gluon = {
+    gluon_wasm: import('./gluon_wasm'),
+    gluon_wasm_wasm: import('./gluon_wasm_wasm')
+};
 
-import { run_expr } from './gluon_wasm'
-import { booted } from './gluon_wasm_wasm'
-
-booted.then(() => {
-    var Elm = require('./Main.elm');
-    var mountNode = document.getElementById('main');
+var Elm = require('./Main.elm');
+var mountNode = document.getElementById('main');
 
 
-    var app = Elm.Main.embed(mountNode);
+var app = Elm.Main.embed(mountNode);
 
-    app.ports.runExpr.subscribe(function(expr) {
-        let result = run_expr(expr);
-        app.ports.runExprResult.send(result);
+app.ports.runExpr.subscribe(function(expr) {
+    gluon.gluon_wasm.then((gluon_wasm) => {
+        gluon.gluon_wasm_wasm.then((wasm) => {
+            wasm.booted.then(() => {
+                let result = gluon_wasm.run_expr(expr);
+                return app.ports.runExprResult.send(result);
+            });
+        });
     });
 });
+
