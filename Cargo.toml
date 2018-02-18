@@ -18,15 +18,13 @@ iron = "0.6.0"
 persistent = "0.4.0"
 staticfile = "0.5.0"
 mount = "0.4.0"
+flate2 = "1"
 urlencoded = "0.6.0"
 serde_json = "0.7.0"
-log = "0.3.6"
 
 gluon = "0.7.0"
 gluon_format = "0.7.0"
 
-[dev-dependencies]
+log = "0.4.0"
 env_logger = "0.5"
 
-[profile.release]
-debug = true

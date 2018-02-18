@@ -1,4 +1,5 @@
 extern crate env_logger;
+extern crate flate2;
 extern crate futures;
 extern crate gluon;
 extern crate gluon_format;
@@ -12,7 +13,7 @@ extern crate serde_json;
 extern crate staticfile;
 
 use std::fs::{read_dir, File};
-use std::io::{self, Read};
+use std::io::{self, Read, Write};
 use std::time::Instant;
 
 use futures::Async;
@@ -22,6 +23,7 @@ use iron::modifiers::RedirectRaw;
 use iron::prelude::*;
 use iron::{status, Handler};
 use iron::typemap::Key;
+use iron::headers::{ContentEncoding, Encoding};
 
 use serde_json::Value;
 
@@ -216,7 +218,7 @@ fn make_eval_vm() -> RootedThread {
 }
 
 fn main() {
-    env_logger::init().unwrap();
+    env_logger::init();
 
     let try_mount = {
         let mut mount = Mount::new();
@@ -242,6 +244,28 @@ fn main() {
             mount.mount("/examples", middleware);
         }
 
+        // Pre-compress and only serve a gzipped, static version of the huge index.js file
+        let compressed_index_js = {
+            let mut index_js = String::new();
+            File::open("dist/try/index.js")
+                .unwrap()
+                .read_to_string(&mut index_js)
+                .unwrap();
+
+            let mut compressor =
+                flate2::write::GzEncoder::new(Vec::new(), flate2::Compression::default());
+            compressor.write_all(index_js.as_bytes()).unwrap();
+
+            compressor.finish().unwrap()
+        };
+
+        let mime: Mime = "application/javascripts".parse().unwrap();
+        mount.mount("index.js", move |_: &mut Request| -> IronResult<Response> {
+            let mut res = Response::with((status::Ok, mime.clone(), &compressed_index_js[..]));
+            res.headers.set(ContentEncoding(vec![Encoding::Gzip]));
+            Ok(res)
+        });
+
         mount
     };
 
@@ -259,6 +283,8 @@ fn main() {
             )),
         )))
     });
+
+    let root_handler = mount;
 
     let address = "0.0.0.0:8080";
 
@@ -278,7 +304,7 @@ fn main() {
                 )),
             )))
         } else {
-            mount.handle(req)
+            root_handler.handle(req)
         }
     }).http(address)
         .unwrap();
