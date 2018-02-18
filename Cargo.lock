@@ -1143,7 +1143,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "wasm-bindgen"
 version = "0.1.0"
-source = "git+https://github.com/alexcrichton/wasm-bindgen#78025359489e3d9c262b8c0ebf52cf5dba0227f0"
+source = "git+https://github.com/alexcrichton/wasm-bindgen#d66bc257499f4996920eb3fd42db139e92ff0c0e"
 dependencies = [
  "wasm-bindgen-macro 0.1.0 (git+https://github.com/alexcrichton/wasm-bindgen)",
 ]
@@ -1151,7 +1151,7 @@ dependencies = [
 [[package]]
 name = "wasm-bindgen-macro"
 version = "0.1.0"
-source = "git+https://github.com/alexcrichton/wasm-bindgen#78025359489e3d9c262b8c0ebf52cf5dba0227f0"
+source = "git+https://github.com/alexcrichton/wasm-bindgen#d66bc257499f4996920eb3fd42db139e92ff0c0e"
 dependencies = [
  "proc-macro2 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "quote 0.4.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1163,7 +1163,7 @@ dependencies = [
 [[package]]
 name = "wasm-bindgen-shared"
 version = "0.1.0"
-source = "git+https://github.com/alexcrichton/wasm-bindgen#78025359489e3d9c262b8c0ebf52cf5dba0227f0"
+source = "git+https://github.com/alexcrichton/wasm-bindgen#d66bc257499f4996920eb3fd42db139e92ff0c0e"
 dependencies = [
  "fnv 1.0.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.27 (registry+https://github.com/rust-lang/crates.io-index)",

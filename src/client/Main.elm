@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Gluon
 import Html exposing (Html, a, button, div, form, h2, li, nav, option, pre, select, text, textarea, ul)
 import Html.Attributes exposing (class, disabled, href, name, rows, selected)
 import Html.Events exposing (onClick, onInput)
@@ -134,7 +135,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         EvalRequested ->
-            ( { model | evalResult = Pending }, postEval model )
+            ( { model | evalResult = Pending }, Gluon.runExpr model.src )
 
         EvalDone (Ok result) ->
             ( { model | evalResult = Succeed result }, Cmd.none )
