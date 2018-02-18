@@ -1,5 +1,14 @@
 module Main exposing (main)
 
+{-| try_gluon
+
+
+# Main
+
+@docs main
+
+-}
+
 import Gluon
 import Html exposing (Html, a, button, div, form, h2, li, nav, option, pre, select, text, textarea, ul)
 import Html.Attributes exposing (class, disabled, href, name, rows, selected)
@@ -404,13 +413,15 @@ postGist model =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Gluon.runExprResult (\result -> EvalDone (Ok result))
 
 
 
 -- MAIN
 
 
+{-| Starts try_gluon
+-}
 main : Program Never Model Msg
 main =
     Navigation.program

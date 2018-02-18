@@ -15,6 +15,6 @@ booted.then(() => {
 
     app.ports.runExpr.subscribe(function(expr) {
         let result = run_expr(expr);
-        app.ports.suggestions.send(result);
+        app.ports.runExprResult.send(result);
     });
 });
